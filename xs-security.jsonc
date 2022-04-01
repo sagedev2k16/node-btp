@@ -1,0 +1,108 @@
+{
+	"xsappname": "btp-training-app", // name of the app as in manifest.yml
+	"scopes": [ // array of objects
+		{ // object
+			"name": "$XSAPPNAME.read", // reference name of the scope which is tied to a role template. Max 193 chars.
+			"description": "With this scope user can read details." // scope description
+		},
+        {
+			"name": "$XSAPPNAME.perform",
+			"description": "With this scope user can perform operations."
+		},
+		{
+			"name": "$XSAPPNAME.delete",
+			"description": "With this scope user can delete stuff."
+		}
+	],
+	"attributes": [
+		{
+			"name": "country", // attribute name. Max 64 chars.
+			"description": "User's home country",
+			"valueType": "string" // integer or date
+		},
+		{
+			"name": "department",
+			"description": "User's working department",
+			"valueType": "integer"
+		}
+	],
+	"role-templates": [
+		{
+			"name": "USA-Reader", // name of the role template
+			"description": "Role to read details for USA",
+			"scope-references": [ // list of scopes allowed by the role based on this template
+				"$XSAPPNAME.read"
+			],
+			"attribute-references": [
+				{
+					"name": "country",
+					"default-values": ["USA"]
+				}
+			]
+		},
+		{
+			"name": "Singapore-Reader", // name of the role template
+			"description": "Role to read details",
+			"scope-references": [ // list of scopes allowed by the role based on this template
+				"$XSAPPNAME.read"
+			],
+			"attribute-references": [
+				{
+					"name": "country",
+					"default-values": ["Singapore"]
+				}
+			]
+		},
+		{
+			"name": "Global-Reader", // name of the role template
+			"description": "Role to read details",
+			"scope-references": [ // list of scopes allowed by the role based on this template
+				"$XSAPPNAME.read"
+			]
+		},
+        {
+			"name": "Admin",
+			"description": "Role to perform activities",
+			"scope-references": [
+				"$XSAPPNAME.read",
+                "$XSAPPNAME.perform"
+			],
+			"attribute-references": [
+				{
+					"name": "department" // no default value
+				}
+			]
+		}
+	],
+	"role-collections": [ // (optional) create predefined role collections with the role combinations
+		{
+			"name": "TrainingViewer",
+			"description": "Training Viewer",
+			"role-template-references": [
+				"$XSAPPNAME.Reader"
+			]
+		},
+        {
+			"name": "TrainingAdmin",
+			"description": "Training Admin",
+			"role-template-references": [
+				"$XSAPPNAME.Admin"
+			]
+		},
+		{
+			"name": "TrainingAdminKeyUser",
+			"description": "Training Admin",
+			"role-template-references": [
+				"$XSAPPNAME.Reader",
+				"$XSAPPNAME.Admin"
+			]
+		}
+	],
+    "oauth2-configuration": {
+        "token-validity": 3600, // validity of the access token in seconds (5 mins - 300 to 3 years - 99,999,999)
+		"redirect-uris": ["https://frontend-app.cfapps.us10.hana.ondemand.com"]
+    }
+}
+
+// XSUAA Attibute == SAML Attribute
+// SAML (dept) == XSUAA (department)
