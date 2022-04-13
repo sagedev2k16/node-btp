@@ -1,0 +1,6 @@
+---
+applications:
+- name: sage-dev-node-btp
+  buildpack: nodejs_buildpack
+  path: app
+  memory: 256M
