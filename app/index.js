@@ -83,7 +83,7 @@ app.get("/destConfig", async (req, res) => {
 app.get("/onPremConnect", async (req, res) => {
     if(validateConfig().valid) {
         await getDestinationServiceAccessToken();
-        await getDestinationServiceAccessToken();
+        await getConnectivityServiceAccessToken();
         await getDestinationConfiguration();
         
         let onPremData = await getAllOnPremRecords();
@@ -170,7 +170,7 @@ async function getDestinationConfiguration() {
         }
     });
 
-    destinationConfiguration = destConfig.data;
+    destinationConfiguration = destConfig.data["destinationConfiguration"];
 
     return destConfig.data;
 }
