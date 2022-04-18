@@ -16,19 +16,24 @@ let onPremProxyHost, onPremProxyPort, connServClientId, connServClientSecret, co
 // xsuaa service
 let xsuaaUrl;
 
-if(process.env.NODE_ENV === "production") {
+if(process.env.NODE_ENV === "production") { // this checks if we are running on BTP
     services = readServices();
+    
+    // fetch service instances binding information
     connServ = getServices({connectivity: {name: "conn-dev"}}).connectivity;
     destServ = getServices({destination: {name: "dest-dev"}}).destination;
     xsuaaServ = getServices({xsuaa: {name: "xsuaa-dev"}}).xsuaa;
 
+    // fetch on-prem connection parameters from connectivity service
     onPremProxyHost = connServ["onpremise_proxy_host"];
     onPremProxyPort = connServ["onpremise_proxy_http_port"];
 
+    // destination service auth parameters
     destServClientId = destServ["clientid"];
     destServClientSecret = destServ["clientsecret"];
     destinationServiceUrl = destServ["uri"];
 
+    // connectivity service auth params
     connServClientId = connServ["clientid"];
     connServClientSecret = connServ["clientsecret"];
 
@@ -162,7 +167,8 @@ async function getConnectivityServiceAccessToken() {
 }
 
 async function getDestinationConfiguration() {
-    let destConfigUrl = destinationServiceUrl + "/destination-configuration/v1/destinations/" + "sdlocalnode";
+    // reference the destination config by its name - sdlocalnode1
+    let destConfigUrl = destinationServiceUrl + "/destination-configuration/v1/destinations/" + "sdlocalnode1";
 
     const destConfig = await axios.get(destConfigUrl, {
         headers: {
