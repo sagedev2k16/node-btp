@@ -2,6 +2,6 @@
     "routes": [{
       "source": "^/app",
       "target": "/",
-      "destination": "syncer-destination"
+      "destination": "sage-dev-node-btp-destination"
     }]
 }

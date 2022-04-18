@@ -91,9 +91,12 @@ app.get("/onPremConnect", async (req, res) => {
         await getConnectivityServiceAccessToken();
         await getDestinationConfiguration();
         
-        let onPremData = await getAllOnPremRecords();
-        
-        res.send(onPremData);
+        try {
+            let onPremData = await getAllOnPremRecords();
+            res.send(onPremData);
+        } catch(e) {
+            res.send(e);
+        }
     } else {
         res.send("Configuration not valid. Check with /validate");
     }
@@ -184,7 +187,7 @@ async function getDestinationConfiguration() {
 async function getAllOnPremRecords() {
     const sourceResponse = await axios({
         method: "GET",
-        url: destinationConfiguration["URL"] + "users",
+        url: destinationConfiguration["URL"] + "/users",
         headers: {
             "Proxy-Authorization": "Bearer " + connectivityAccessToken,
             "SAP-Connectivity-SCC-Location_ID": destinationConfiguration["CloudConnectorLocationId"]
