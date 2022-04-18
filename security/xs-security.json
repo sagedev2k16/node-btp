@@ -1,0 +1,48 @@
+{
+	"xsappname": "sage-dev-node-btp",
+	"tenant-mode": "dedicated",
+	"scopes": [
+		{
+			"name": "$XSAPPNAME.read",
+			"description": "With this scope user can read details."
+		},
+        {
+			"name": "$XSAPPNAME.perform",
+			"description": "With this scope user can perform operations."
+		}
+	],
+
+	"role-templates": [
+		{
+			"name": "Reader",
+			"description": "Role to read details",
+			"scope-references": [
+				"$XSAPPNAME.read"
+			]
+		},
+        {
+			"name": "Admin",
+			"description": "Role to perform activities",
+			"scope-references": [
+				"$XSAPPNAME.read",
+                "$XSAPPNAME.perform"
+			]
+		}
+	],
+	"role-collections": [
+		{
+			"name": "NodeBTPViewer",
+			"description": "NodeBTP Viewer",
+			"role-template-references": [
+				"$XSAPPNAME.Reader"
+			]
+		},
+        {
+			"name": "NodeBTPAdmin",
+			"description": "NodeBTP Admin",
+			"role-template-references": [
+				"$XSAPPNAME.Admin"
+			]
+		}
+	]
+}

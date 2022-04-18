@@ -1,0 +1,17 @@
+---
+applications:
+# AppRouter
+- name: sage-dev-node-btp-server
+  path: approuter
+  buildpack: nodejs_buildpack
+  memory: 128M
+  disk_quota: 512M
+  env:
+    destinations: >
+     [
+       {"name": "sage-dev-node-btp-destination",
+        "url": "https://sage-dev-node-btp.cfapps.us10.hana.ondemand.com",
+        "forwardAuthToken": true}
+     ]
+  services:
+    - xsuaa-dev

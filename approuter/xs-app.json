@@ -1,0 +1,7 @@
+{
+    "routes": [{
+      "source": "^/app",
+      "target": "/",
+      "destination": "syncer-destination"
+    }]
+}
