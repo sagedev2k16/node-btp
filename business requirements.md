@@ -18,9 +18,9 @@
 [Done] 4. Deploy an app on BTP (node-btp).
 [Done] 5. Create service instances of XSUAA, Destination and Connectivity services.
 [Done] 6. Bind services instances to the app.
-7. Get destination service access token.
-8. Get connectivity service access token.
-9. Get destination configuration (use the destination access token from step 7).
+[Done] 7. Get destination service access token.
+[Done] 8. Get connectivity service access token.
+[Done] 9. Get destination configuration (use the destination access token from step 7).
 10. Call the on-prem server from BTP app.
 11. Add authentication in BTP app (app-router).
 12. Add authorization in BTP app (xs-security.json)

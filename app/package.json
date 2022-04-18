@@ -1,36 +1,36 @@
 {
-    "name": "sage-dev-node-btp",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "type": "module",
-    "engines": {
-      "node": "14.x.x",
-      "npm": "6.x.x"
-    },
-    "scripts": {
-      "start": "node index.js",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/sagedev2k16/node-btp.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-      "url": "https://github.com/sagedev2k16/node-btp/issues"
-    },
-    "homepage": "https://github.com/sagedev2k16/node-btp#readme",
-    "dependencies": {
-      "@sap/xsenv": "^3.2.0",
-      "@sap/xssec": "^3.2.13",
-      "axios": "^0.26.0",
-      "express": "^4.17.3",
-      "passport": "^0.5.2"
-    },
-    "devDependencies": {
-      "eslint": "^8.10.0"
-    }
+  "name": "sage-dev-node-btp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "14.x.x",
+    "npm": "6.x.x"
+  },
+  "scripts": {
+    "start": "node index_authorization.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagedev2k16/node-btp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagedev2k16/node-btp/issues"
+  },
+  "homepage": "https://github.com/sagedev2k16/node-btp#readme",
+  "dependencies": {
+    "@sap/xsenv": "^3.2.0",
+    "@sap/xssec": "^3.2.13",
+    "axios": "^0.26.0",
+    "express": "^4.17.3",
+    "passport": "^0.5.2",
+    "jwt-decode": "^3.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0"
   }
-  
+}
