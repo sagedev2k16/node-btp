@@ -10,7 +10,7 @@ applications:
     destinations: >
      [
        {"name": "sage-dev-node-btp-destination",
-        "url": "https://sage-dev-node-btp.cfapps.us10.hana.ondemand.com",
+        "url": "https://sage-dev-node-btp.cfapps.us10-001.hana.ondemand.com",
         "forwardAuthToken": true}
      ]
   services:
