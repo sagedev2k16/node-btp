@@ -114,6 +114,14 @@ app.get("/getAllOnPremRecords", checkReadScope, async (req, res) => {
     }
 });
 
+app.get("/readPerm", checkReadScope, async (req, res) => {
+    res.send("You have read permissions. You can read data.");
+});
+
+app.get("/doPerm", checkPerformScope, async (req, res) => {
+    res.send("You have doing permissions. You can create / update / delete data.");
+});
+
 app.get("/addNewRecord/:type/:name", checkPerformScope, async (req, res) => {
     if(validateConfig().valid) {
         await getDestinationServiceAccessToken();
