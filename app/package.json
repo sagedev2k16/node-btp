@@ -9,7 +9,7 @@
       "npm": "6.x.x"
     },
     "scripts": {
-      "start": "node index_authorization.js",
+      "start": "node index.js",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {

@@ -2,6 +2,8 @@
 applications:
 - name: sage-dev-node-btp
   buildpack: nodejs_buildpack
+  memory: 144M
+  disk_quota: 300M
   path: app
   services:
     - xsuaa-dev
