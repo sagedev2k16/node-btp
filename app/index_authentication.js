@@ -3,6 +3,7 @@ import { getServices, readServices } from "@sap/xsenv";
 import axios from "axios";
 import passport from "passport";
 import { JWTStrategy } from "@sap/xssec";
+import jwt_decode from 'jwt-decode';
 
 const app = express();
 let PORT = process.env.PORT || 8888;
@@ -48,6 +49,11 @@ if(process.env.NODE_ENV === "production") { // this checks if we are running on 
 
     xsuaaUrl = xsuaaServ["url"];
 }
+
+app.get("/date", (req, res) => {
+    console.log("Got request", req.url);
+    res.send("Hello date today is: " + new Date().toLocaleString());
+});
 
 app.get("/", (req, res) => {
     console.log("Got request", req.url);
@@ -130,6 +136,15 @@ app.get("/addNewRecord/:type/:name", async (req, res) => {
 
 app.get("/env", (req, res) => {
     res.send(process.env);
+});
+
+app.get("/auth", (req, res) => {
+    // console.log(JSON.stringify(req));
+    res.send({
+        user: req.user,
+        appToken: req.authInfo.getAppToken(),
+        tokenDecode: jwt_decode(req.authInfo.getAppToken())
+    });
 });
 
 app.listen(PORT, () => {

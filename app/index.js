@@ -45,6 +45,7 @@ app.get("/", (req, res) => {
     res.send("Hola");
 });
 
+console.log(process.env.NAME);
 console.log(process.env.MY_VAR_1);
 console.log(process.env.VCAP_SERVICES);
 
