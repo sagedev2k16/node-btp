@@ -255,7 +255,7 @@ async function getAllOnPremRecords() {
 async function createNewRecord(heroData) {
     const sourceResponse = await axios({
         method: "POST",
-        url: destinationConfiguration["URL"] + "/hero/create" + type,
+        url: destinationConfiguration["URL"] + "/hero/create",
         headers: {
             "Proxy-Authorization": "Bearer " + connectivityAccessToken,
             "SAP-Connectivity-SCC-Location_ID": destinationConfiguration["CloudConnectorLocationId"]
