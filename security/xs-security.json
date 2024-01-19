@@ -11,13 +11,25 @@
 			"description": "With this scope user can perform operations."
 		}
 	],
-
+	"attributes": [
+		{
+			"name": "country",
+			"description": "User's home country",
+			"valueType": "string"
+		}
+	],
 	"role-templates": [
 		{
 			"name": "Reader",
 			"description": "Role to read details",
 			"scope-references": [
 				"$XSAPPNAME.read"
+			],
+			"attribute-references": [
+				{
+					"name": "country",
+					"default-values": ["Singapore"]
+				}
 			]
 		},
         {
@@ -26,6 +38,12 @@
 			"scope-references": [
 				"$XSAPPNAME.read",
                 "$XSAPPNAME.perform"
+			],
+			"attribute-references": [
+				{
+					"name": "country",
+					"default-values": ["Singapore"]
+				}
 			]
 		}
 	],

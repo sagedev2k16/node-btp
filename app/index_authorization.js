@@ -238,7 +238,7 @@ async function getDestinationConfiguration() {
 async function getAllOnPremRecords() {
     const sourceResponse = await axios({
         method: "GET",
-        url: destinationConfiguration["URL"] + "/hero/heroes",
+        url: destinationConfiguration["URL"] + "/db/users",
         headers: {
             "Proxy-Authorization": "Bearer " + connectivityAccessToken,
             "SAP-Connectivity-SCC-Location_ID": destinationConfiguration["CloudConnectorLocationId"]
@@ -252,15 +252,15 @@ async function getAllOnPremRecords() {
     return sourceResponse.data;
 }
 
-async function createNewRecord(heroData) {
+async function createNewRecord(userData) {
     const sourceResponse = await axios({
         method: "POST",
-        url: destinationConfiguration["URL"] + "/hero/create",
+        url: destinationConfiguration["URL"] + "/db/create/" + userData.type,
         headers: {
             "Proxy-Authorization": "Bearer " + connectivityAccessToken,
             "SAP-Connectivity-SCC-Location_ID": destinationConfiguration["CloudConnectorLocationId"]
         },
-        data: heroData,
+        data: userData,
         proxy: {
             host: onPremProxyHost,
             port: onPremProxyPort

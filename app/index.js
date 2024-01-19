@@ -4,6 +4,7 @@ import axios from "axios";
 
 const app = express();
 let PORT = process.env.PORT || 8888;
+let destName = process.env.DEST || "sdlocalnode1";
 
 let services, connServ, destServ, xsuaaServ;
 
@@ -106,6 +107,25 @@ app.get("/onPremConnect", async (req, res) => {
     }
 });
 
+app.post("/addNewRecord", async (req, res) => {
+    if(validateConfig().valid) {
+        await getDestinationServiceAccessToken();
+        await getConnectivityServiceAccessToken();
+        await getDestinationConfiguration();
+
+        let reqBody = req.body;
+        
+        try {
+            let onPremData = await createNewRecord(reqBody);
+            res.send(onPremData);
+        } catch(e) {
+            res.send(e);
+        }
+    } else {
+        res.send("Configuration not valid. Check with /validate");
+    }
+});
+
 app.get("/env", (req, res) => {
     res.send(process.env);
 });
@@ -175,7 +195,7 @@ async function getConnectivityServiceAccessToken() {
 
 async function getDestinationConfiguration() {
     // reference the destination config by its name - sdlocalnode1
-    let destConfigUrl = destinationServiceUrl + "/destination-configuration/v1/destinations/" + "sdlocalnode1";
+    let destConfigUrl = destinationServiceUrl + "/destination-configuration/v1/destinations/" + destName;
 
     const destConfig = await axios.get(destConfigUrl, {
         headers: {
@@ -191,11 +211,29 @@ async function getDestinationConfiguration() {
 async function getAllOnPremRecords() {
     const sourceResponse = await axios({
         method: "GET",
-        url: destinationConfiguration["URL"] + "/users",
+        url: destinationConfiguration["URL"] + "/db/users",
         headers: {
             "Proxy-Authorization": "Bearer " + connectivityAccessToken,
             "SAP-Connectivity-SCC-Location_ID": destinationConfiguration["CloudConnectorLocationId"]
         },
+        proxy: {
+            host: onPremProxyHost,
+            port: onPremProxyPort
+        }
+    });
+
+    return sourceResponse.data;
+}
+
+async function createNewRecord(userData) {
+    const sourceResponse = await axios({
+        method: "POST",
+        url: destinationConfiguration["URL"] + "/db/create/" + userData.type,
+        headers: {
+            "Proxy-Authorization": "Bearer " + connectivityAccessToken,
+            "SAP-Connectivity-SCC-Location_ID": destinationConfiguration["CloudConnectorLocationId"]
+        },
+        data: userData,
         proxy: {
             host: onPremProxyHost,
             port: onPremProxyPort

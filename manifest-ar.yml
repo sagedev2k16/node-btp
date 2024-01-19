@@ -1,7 +1,7 @@
 ---
 applications:
 # AppRouter
-- name: sage-dev-node-btp-server
+- name: sage-dev-node-btp-server-1
   path: approuter
   buildpack: nodejs_buildpack
   memory: 128M
